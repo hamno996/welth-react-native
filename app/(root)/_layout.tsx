@@ -1,6 +1,5 @@
 import { Stack } from "expo-router";
-import "../global.css";
 
-export default function RootLayout() {
+export default function RootGroupLayout() {
   return <Stack screenOptions={{ headerShown: false }} />;
 }
