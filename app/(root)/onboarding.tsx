@@ -9,7 +9,7 @@ import { useUser } from "@clerk/expo";
 import { Feather } from "@expo/vector-icons";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
   Image,
@@ -22,7 +22,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function OnBoardingScreen() {
+export default function OnboardingScreen() {
   const { user } = useUser();
   const authSupabase = useSupabase();
   const setCurrency = useUserStore((s) => s.setCurrency);
@@ -41,7 +41,6 @@ export default function OnBoardingScreen() {
   const [selectedCurrency, setSelectedCurrency] = useState(
     ALL_CURRENCIES.find((c) => c.code === "INR") ?? ALL_CURRENCIES[0],
   );
-
   const [pickerOpen, setPickerOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -131,10 +130,11 @@ export default function OnBoardingScreen() {
             A couple of quick details to personalise your experience.
           </Text>
 
-          <Text className="text-brand-bg text-sm font-medium mb-1.5">
+          {/* Starting balance */}
+          <Text className="text-brand-bg text-xs font-medium mb-1.5">
             Starting balance
           </Text>
-          <View className="flex-row items-center bg-white border border-[#E9E6DF] rounded-xl px-4 mb-1">
+          <View className="flex-row items-center bg-white border border-[#E8E6DF] rounded-xl px-4 mb-1">
             <Text className="text-brand-text-secondary text-sm mr-2">
               {selectedCurrency.symbol}
             </Text>
@@ -144,11 +144,11 @@ export default function OnBoardingScreen() {
               render={({ field: { value, onChange } }) => (
                 <TextInput
                   value={value}
-                  onChange={(v) => {
+                  onChangeText={(v) => {
                     setError("");
                     onChange(v);
                   }}
-                  placeholder="e.g. 5000"
+                  placeholder="e.g. 50000"
                   placeholderTextColor="#8A8D96"
                   keyboardType="numeric"
                   returnKeyType="done"
@@ -164,6 +164,7 @@ export default function OnBoardingScreen() {
           )}
           <View className="mb-4" />
 
+          {/* Currency picker */}
           <Text className="text-brand-bg text-xs font-medium mb-1.5">
             Currency
           </Text>
@@ -172,11 +173,12 @@ export default function OnBoardingScreen() {
             className="flex-row items-center justify-between bg-white border border-[#E8E6DF] rounded-xl px-4 py-3.5 mb-6"
           >
             <Text className="text-sm text-brand-bg">
-              {selectedCurrency.symbol} {selectedCurrency.code} -{""}
+              {selectedCurrency.symbol} {selectedCurrency.code} —{" "}
               {selectedCurrency.name}
             </Text>
             <Feather name="chevron-down" size={16} color="#8A8D96" />
           </TouchableOpacity>
+
           {error ? (
             <Text className="text-brand-coral text-xs mb-4">{error}</Text>
           ) : null}
@@ -193,6 +195,7 @@ export default function OnBoardingScreen() {
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
+
       <CurrencyPicker
         visible={pickerOpen}
         selectedCode={selectedCurrency.code}
