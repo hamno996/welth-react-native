@@ -2,6 +2,7 @@ import { getCategoryConfig } from "@/constants/categories";
 import { useAccountQuery } from "@/hooks/queries/useAccountsQuery";
 import { useBudgetQuery } from "@/hooks/queries/useBudgetQuery";
 import { useTransactionsQuery } from "@/hooks/queries/useTransactionsQuery";
+import { formatPrice } from "@/lib/utils";
 import { useUserStore } from "@/store/userStore";
 import { Transaction } from "@/types";
 import { useUser } from "@clerk/expo";
@@ -160,6 +161,29 @@ export default function HomeScreen() {
                   <Feather name="user" size={18} color="#8A8D96" />
                 )}
               </TouchableOpacity>
+            </View>
+
+            <View className="mb-[22px]">
+              <Text className="text-brand-text-secondary text-xs mb-1.5">
+                Total balance
+              </Text>
+              <Text className="text-brand-text-primary text-[38px] font-medium tracking-tight">
+                {formatPrice(totalBalance, currency)}
+              </Text>
+              <View className="flex-row gap-3.5 mt-2.5">
+                <View className="flex-row items-center gap-1.5">
+                  <Feather name="arrow-up-right" size={14} color="#3DDC84" />
+                  <Text className="text-brand-success text-[13px]">
+                    {formatPrice(monthIncome, currency)}
+                  </Text>
+                </View>
+                <View className="flex-row items-center gap-1.5">
+                  <Feather name="arrow-down-right" size={14} color="#FF6B4A" />
+                  <Text className="text-brand-coral text-[13px]">
+                    {formatPrice(monthExpense, currency)}
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>
