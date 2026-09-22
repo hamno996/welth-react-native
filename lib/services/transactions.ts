@@ -63,8 +63,6 @@ export async function createTransaction(
   return { transaction: transaction as Transaction, error: null };
 }
 
-// Delete then reverse the balance effect, same sequential-calls caveat as
-// createTransaction — a failure on the reversal is returned, not swallowed.
 export async function deleteTransaction(
   supabase: SupabaseClient,
   transactionId: string,

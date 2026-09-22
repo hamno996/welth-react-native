@@ -1,8 +1,8 @@
 import { useSupabase } from "@/hooks/useSupabase";
 import { queryKeys } from "@/lib/query/kyes";
 import {
-    getTransactions,
-    TransactionFilters,
+  getTransactions,
+  TransactionFilters,
 } from "@/lib/services/transactions";
 import { useUser } from "@clerk/expo";
 import { useQuery } from "@tanstack/react-query";
